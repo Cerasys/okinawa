@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./terms.css";
 
 export const Terms = () => {
+  useEffect(() => {
+    document.title = "Terms of Service";
+  }, []);
+
   return (
     <div className="terms">
       <h1>Terms of Service</h1>

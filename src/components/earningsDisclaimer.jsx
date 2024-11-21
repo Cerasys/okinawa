@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./earningsDisclaimer.css";
 
 export const EarningsDisclaimer = () => {
+  useEffect(() => {
+    document.title = "Earnings Disclaimer";
+  }, []);
+
   return (
     <React.Fragment>
       <header id="header"></header>

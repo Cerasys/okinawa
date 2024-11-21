@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./thankYou.css"; // Import the CSS file
 
 const ThankYou = () => {
+  useEffect(() => {
+    document.title = "Confirm Your Call via Email";
+  }, []);
+
   return (
     <div className="thankyou-background">
       <h1>Thank You for Booking a Call!</h1>

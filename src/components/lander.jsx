@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "./footer";
 import "./lander.css"; // Import the CSS file
 
-const Lander = (props) => {
+const Lander = () => {
+  useEffect(() => {
+    document.title = "Free Video Guide";
+  }, []);
+
   return (
     <div
       className="lander-background" // Add a class for the background styles

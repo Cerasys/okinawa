@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./bookCall.css"; // Import the CSS file
 
 const BookCall = () => {
+  useEffect(() => {
+    document.title = "Application";
+  }, []);
+
   return (
     <div className="bookcall-background">
       <div className="callout">
