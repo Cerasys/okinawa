@@ -1,0 +1,50 @@
+/* Main container with background image */
+.thankyou-background {
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('/public/img/whiteGeo.jpg');
+    /* Background image applied here */
+    background-size: cover;
+    /* Ensure the background image covers the whole container */
+    background-position: center;
+    /* Center the background image */
+    background-repeat: no-repeat;
+    /* Prevent image from repeating */
+    background-attachment: fixed;
+    /* Keep the background fixed while scrolling */
+    min-height: 100vh;
+    /* Ensure full viewport height */
+    min-width: 100vw;
+    /* Ensure full viewport width */
+    font-family: Poppins, sans-serif;
+    /* Apply Poppins font */
+    color: black;
+    /* Text color */
+}
+
+/* Video container */
+.video-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* Max width image */
+.thankyou-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+/* Footer styling */
+footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777;
+}
+
+footer p {
+    margin: 0;
+}
