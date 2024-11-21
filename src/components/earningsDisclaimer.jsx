@@ -135,6 +135,9 @@ export const EarningsDisclaimer = () => {
           products and/or services has been arbitrarily set by us. This price
           bears no relationship to objective standards.
         </p>
+        <a href="/" class="back-button">
+          Back to Coaching Goodness
+        </a>
       </div>
     </React.Fragment>
   );

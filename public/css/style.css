@@ -33,34 +33,6 @@ a {
   /* Remove borders */
 }
 
-a:hover,
-a:focus {
-  color: var(--orange-dark);
-  /* Hover color */
-  text-decoration: underline;
-  /* Underline on hover */
-}
-
-/* Custom button style for actual buttons */
-.btn-custom {
-  background-color: var(--orange-dark);
-  background-image: linear-gradient(to right, var(--orange-dark), var(--orange-light));
-  color: #fff;
-  padding: 14px 34px;
-  border-radius: 25px;
-  font-weight: 500;
-  transition: all 0.5s linear;
-  border: 0;
-  text-transform: uppercase;
-  font-family: "Raleway", sans-serif;
-}
-
-/* Button hover effect */
-.btn-custom:hover {
-  background-color: var(--orange-light);
-  background-image: linear-gradient(to right, var(--orange-light), var(--orange-dark));
-}
-
 /* General text styles */
 h1,
 h2,

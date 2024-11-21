@@ -36,8 +36,12 @@ const App = () => {
         <Route exact path="/thank-you" element={<ThankYou />}></Route>
 
         <Route exact path="/privacy" element={<Privacy />}></Route>
-        <Route exact path="/terms" element={<Terms />}></Route>
-        <Route exact path="/earnings" element={<EarningsDisclaimer />}></Route>
+        <Route exact path="/terms-of-service" element={<Terms />}></Route>
+        <Route
+          exact
+          path="/earnings-disclaimer"
+          element={<EarningsDisclaimer />}
+        ></Route>
 
         {/* Catch-all route */}
         <Route path="*" element={<Lander />} />

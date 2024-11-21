@@ -131,7 +131,7 @@ const Footer = () => {
             >
               <div>
                 <Link
-                  to="/privacy-policy"
+                  to="/privacy"
                   style={{
                     color: "rgba(15, 15, 15, 0.31)", // Matching footer text color
                     textDecoration: "none", // Removing underline
