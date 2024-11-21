@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Assuming you're using react-router for navigation
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       style={{
         outline: "none",
         marginBottom: "0px",
-        maxWidth: "800",
+        maxWidth: "800px", // Ensure proper max width
         justifyContent: "center",
         margin: "0 auto",
       }}
@@ -28,6 +29,7 @@ const Footer = () => {
         data-title="full column"
       >
         <div className="col-inner bgCover noBorder borderSolid border3px cornersAll radius0 shadow0 P0-top P0-bottom P0H noTopMargin">
+          {/* Main Footer Text */}
           <div
             style={{ marginTop: "40px", outline: "none", cursor: "pointer" }}
             className="de elHeadlineWrapper ui-droppable de-editable"
@@ -54,8 +56,10 @@ const Footer = () => {
               <div>All rights reserved</div>
             </div>
           </div>
+
+          {/* Earnings Disclaimer */}
           <div
-            style={{ marginTop: "40px", outline: "none", cursor: "pointer" }}
+            style={{ marginTop: "20px", outline: "none", cursor: "pointer" }}
             className="de elHeadlineWrapper ui-droppable de-editable"
             id="headline-46119"
             data-de-type="headline"
@@ -80,16 +84,17 @@ const Footer = () => {
               Earnings Disclaimer &amp; Income Claims:
               <div>
                 Starting and running an online coaching course is NOT a
-                get-rich-quick scheme, it requires a lot of hard work and
-                dedication to see results/success and success is NOT guaranteed
-                as there are many factors at play. Hoshino Media is not a
-                "get-rich-quick" scheme nor does it make any guarantees or
-                promises of results because results vary from person to person.
+                get-rich-quick scheme. It requires a lot of hard work and
+                dedication to see results. Success is not guaranteed, as there
+                are many factors at play. Hoshino Media does not guarantee or
+                promise results, as outcomes vary from person to person.
               </div>
             </div>
           </div>
+
+          {/* Facebook Disclaimer */}
           <div
-            style={{ marginTop: "40px", outline: "none", cursor: "pointer" }}
+            style={{ marginTop: "20px", outline: "none", cursor: "pointer" }}
             className="de elHeadlineWrapper ui-droppable de-editable"
             id="headline-65027"
             data-de-type="headline"
@@ -112,8 +117,52 @@ const Footer = () => {
               contentEditable="false"
             >
               This site is not a part of the Facebook website or Facebook Inc.
-              Additionally, This site is NOT endorsed by Facebook in any way.
+              Additionally, this site is NOT endorsed by Facebook in any way.
               FACEBOOK is a trademark of FACEBOOK, Inc.
+            </div>
+            {/* Legal Links Styled as Text (No Button Style) */}
+            <div
+              style={{
+                marginTop: "20px",
+                textAlign: "center",
+                fontSize: "12px",
+                color: "rgba(15, 15, 15, 0.31)",
+              }}
+            >
+              <div>
+                <Link
+                  to="/privacy-policy"
+                  style={{
+                    color: "rgba(15, 15, 15, 0.31)", // Matching footer text color
+                    textDecoration: "none", // Removing underline
+                    fontSize: "12px", // Matching text size
+                  }}
+                >
+                  Privacy Policy
+                </Link>{" "}
+                |{" "}
+                <Link
+                  to="/terms-of-service"
+                  style={{
+                    color: "rgba(15, 15, 15, 0.31)", // Matching footer text color
+                    textDecoration: "none", // Removing underline
+                    fontSize: "12px", // Matching text size
+                  }}
+                >
+                  Terms of Service
+                </Link>{" "}
+                |{" "}
+                <Link
+                  to="/earnings-disclaimer"
+                  style={{
+                    color: "rgba(15, 15, 15, 0.31)", // Matching footer text color
+                    textDecoration: "none", // Removing underline
+                    fontSize: "12px", // Matching text size
+                  }}
+                >
+                  Earnings Disclaimer
+                </Link>
+              </div>
             </div>
           </div>
         </div>

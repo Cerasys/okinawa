@@ -1,0 +1,31 @@
+.earnings-disclaimer {
+    width: 80%;
+    margin: auto;
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.earnings-disclaimer h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.earnings-disclaimer p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.earnings-disclaimer a {
+    color: #ff6f3c;
+    text-decoration: none;
+}
+
+.earnings-disclaimer a:hover {
+    text-decoration: underline;
+}
+
+.earnings-disclaimer h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
