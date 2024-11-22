@@ -4,10 +4,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.handler = async (event, context) => {
+  console.log("Event:", event);
+
   let body;
   try {
     body = JSON.parse(event.body);
+    console.log("Parsed Body:", body);
   } catch (error) {
+    console.log("JSON Parsing Error:", error);
     return {
       statusCode: 400,
       body: JSON.stringify({
@@ -18,6 +22,11 @@ exports.handler = async (event, context) => {
   }
 
   const { event: eventType, value, currency, test_event_code } = body;
+  console.log("Event Type:", eventType);
+  console.log("Value:", value);
+  console.log("Currency:", currency);
+  console.log("Test Event Code:", test_event_code);
+
   const accessToken = process.env.FACEBOOK_ACCESS_TOKEN;
   const pixelId = process.env.FACEBOOK_PIXEL_ID;
 
@@ -38,6 +47,7 @@ exports.handler = async (event, context) => {
         },
       }
     );
+    console.log("Response:", response.data);
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -46,6 +56,7 @@ exports.handler = async (event, context) => {
       }),
     };
   } catch (error) {
+    console.log("Error sending event:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({
