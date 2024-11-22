@@ -1,13 +1,20 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid"; // Import the uuid library
 import "./bookCall.css"; // Import the CSS file
 
-const sendEvent = async (event, event_source_url, client_user_agent) => {
+const sendEvent = async (
+  event,
+  event_source_url,
+  client_user_agent,
+  event_id
+) => {
   await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
     event_source_url,
     client_user_agent,
     test_event_code: "TEST18837",
+    event_id: event_id,
   });
 };
 
@@ -19,7 +26,23 @@ const BookCall = () => {
   useEffect(() => {
     const userAgent = navigator.userAgent;
     const sourceUrl = window.location.href;
-    sendEvent("viewedBookCall", sourceUrl, userAgent);
+    const eventId = uuidv4(); // Generate a unique event ID
+
+    sendEvent("viewedBookCall", sourceUrl, userAgent, eventId);
+
+    const trackFacebookEvent = () => {
+      if (window.fbq) {
+        // Add Facebook Pixel event with event_id
+        window.fbq("track", "ViewContent", {
+          event_name: "viewedBookCall",
+          event_id: eventId,
+        });
+      } else {
+        setTimeout(trackFacebookEvent, 100); // Retry after a short delay
+      }
+    };
+
+    trackFacebookEvent();
   }, []);
 
   return (

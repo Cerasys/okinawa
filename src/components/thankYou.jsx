@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import axios from "axios";
 import CryptoJS from "crypto-js"; // Import the crypto-js module
+import { v4 as uuidv4 } from "uuid"; // Import the uuid library
 import "./thankYou.css"; // Import the CSS file
 import { useLocation } from "react-router-dom";
 
@@ -22,7 +23,14 @@ const fetchIPAddress = async () => {
   }
 };
 
-const sendEvent = async (event, value, currency, userData, clientIpAddress) => {
+const sendEvent = async (
+  event,
+  value,
+  currency,
+  userData,
+  clientIpAddress,
+  eventId
+) => {
   await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
     value,
@@ -33,11 +41,11 @@ const sendEvent = async (event, value, currency, userData, clientIpAddress) => {
     client_user_agent: navigator.userAgent,
     email: userData.email ? hashValue(userData.email) : null,
     phone: userData.phone ? hashValue(userData.phone) : null,
+    event_id: eventId,
   });
 };
 
 const ThankYou = () => {
-  const [clientIp, setClientIp] = useState("");
   const query = useQuery();
 
   const userData = useMemo(
@@ -56,8 +64,29 @@ const ThankYou = () => {
 
     const fetchAndSendEvent = async () => {
       const ip = await fetchIPAddress();
-      setClientIp(ip);
-      sendEvent("Lead", 0, "USD", userData, ip);
+
+      const eventId = uuidv4(); // Generate a unique event ID
+
+      sendEvent("Lead", 0, "USD", userData, ip, eventId);
+
+      // Add Facebook Pixel event with event_id
+      if (window.fbq) {
+        window.fbq("track", "Lead", {
+          value: 0,
+          currency: "USD",
+          event_id: eventId,
+        });
+      } else {
+        setTimeout(() => {
+          if (window.fbq) {
+            window.fbq("track", "Lead", {
+              value: 0,
+              currency: "USD",
+              event_id: eventId,
+            });
+          }
+        }, 100); // Retry after a short delay
+      }
     };
 
     fetchAndSendEvent();

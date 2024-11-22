@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
 import Footer from "./footer";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid"; // Import the uuid library
 import "./lander.css"; // Import the CSS file
 
-const sendEvent = async (event, event_source_url, client_user_agent) => {
+const sendEvent = async (
+  event,
+  event_source_url,
+  client_user_agent,
+  event_id
+) => {
   await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
     event_source_url,
     client_user_agent,
     test_event_code: "TEST18837",
+    event_id: event_id,
   });
 };
 
@@ -20,13 +27,29 @@ const Lander = () => {
   useEffect(() => {
     const userAgent = navigator.userAgent;
     const sourceUrl = window.location.href;
-    sendEvent("viewedLander", sourceUrl, userAgent);
+    const eventId = uuidv4(); // Generate a unique event ID
+
+    sendEvent("viewedLander", sourceUrl, userAgent, eventId);
+
+    const trackFacebookEvent = () => {
+      if (window.fbq) {
+        // Add Facebook Pixel event with event_id
+        window.fbq("track", "ViewContent", {
+          event_name: "viewedLander",
+          event_id: eventId,
+        });
+      } else {
+        setTimeout(trackFacebookEvent, 100); // Retry after a short delay
+      }
+    };
+
+    trackFacebookEvent();
   }, []);
 
   return (
-    <div
-      className="lander-background" // Add a class for the background styles
-    >
+    <div className="lander-background">
+      {" "}
+      {/* Add a class for the background styles */}
       <div
         style={{
           width: "100%",
