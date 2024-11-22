@@ -29,19 +29,20 @@ const sendEvent = async (
   currency,
   userData,
   clientIpAddress,
-  eventId
+  eventId,
+  eventTime
 ) => {
   await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
     value,
     currency,
-    test_event_code: "TEST18837",
     event_source_url: window.location.href,
     client_ip_address: clientIpAddress,
     client_user_agent: navigator.userAgent,
     email: userData.email ? hashValue(userData.email) : null,
     phone: userData.phone ? hashValue(userData.phone) : null,
     event_id: eventId,
+    event_time: eventTime, // Add the event time
   });
 };
 
@@ -61,20 +62,17 @@ const ThankYou = () => {
 
   useEffect(() => {
     document.title = "Confirm Your Call via Email";
-
     const fetchAndSendEvent = async () => {
       const ip = await fetchIPAddress();
-
       const eventId = uuidv4(); // Generate a unique event ID
-
-      sendEvent("Lead", 0, "USD", userData, ip, eventId);
-
-      // Add Facebook Pixel event with event_id
+      const eventTime = Math.floor(Date.now() / 1000); // Capture event time
+      sendEvent("Lead", 0, "USD", userData, ip, eventId, eventTime); // Add Facebook Pixel event with event_id
       if (window.fbq) {
         window.fbq("track", "Lead", {
           value: 0,
           currency: "USD",
           event_id: eventId,
+          event_time: eventTime, // Add the event time
         });
       } else {
         setTimeout(() => {
@@ -83,12 +81,12 @@ const ThankYou = () => {
               value: 0,
               currency: "USD",
               event_id: eventId,
+              event_time: eventTime, // Add the event time
             });
           }
         }, 100); // Retry after a short delay
       }
     };
-
     fetchAndSendEvent();
   }, [userData]);
 
