@@ -3,12 +3,21 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid"; // Import the uuid library
 import "./bookCall.css"; // Import the CSS file
 
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+};
+
 const sendEvent = async (
   event,
   event_source_url,
   client_user_agent,
   event_id,
-  event_time
+  event_time,
+  clickId,
+  browserId,
+  externalId
 ) => {
   await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
@@ -16,6 +25,10 @@ const sendEvent = async (
     client_user_agent,
     event_id: event_id,
     event_time: event_time, // Add event_time
+    fbc: clickId, // Add click ID
+    fbp: browserId, // Add browser ID
+    external_id: externalId, // Add external ID
+    // test_event_code: "TEST18837", // Commented out test_event_code
   });
 };
 
@@ -29,8 +42,20 @@ const BookCall = () => {
     const sourceUrl = window.location.href;
     const eventId = uuidv4(); // Generate a unique event ID
     const eventTime = Math.floor(Date.now() / 1000); // Capture event time
+    const clickId = getCookie("_fbc"); // Get Click ID from cookies
+    const browserId = getCookie("_fbp"); // Get Browser ID from cookies
+    const externalId = uuidv4(); // Generate an external ID, adjust as needed
 
-    sendEvent("viewedBookCall", sourceUrl, userAgent, eventId, eventTime);
+    sendEvent(
+      "viewedBookCall",
+      sourceUrl,
+      userAgent,
+      eventId,
+      eventTime,
+      clickId,
+      browserId,
+      externalId
+    );
 
     const trackFacebookEvent = () => {
       if (window.fbq) {
@@ -39,6 +64,9 @@ const BookCall = () => {
           event_name: "viewedBookCall",
           event_id: eventId,
           event_time: eventTime,
+          fbc: clickId,
+          fbp: browserId,
+          external_id: externalId,
         });
       } else {
         setTimeout(trackFacebookEvent, 100); // Retry after a short delay
