@@ -8,14 +8,15 @@ const sendEvent = async (
   event,
   event_source_url,
   client_user_agent,
-  event_id
+  event_id,
+  event_time
 ) => {
   await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
     event_source_url,
     client_user_agent,
-    test_event_code: "TEST18837",
     event_id: event_id,
+    event_time: event_time, // Add event_time
   });
 };
 
@@ -28,15 +29,17 @@ const Lander = () => {
     const userAgent = navigator.userAgent;
     const sourceUrl = window.location.href;
     const eventId = uuidv4(); // Generate a unique event ID
+    const eventTime = Math.floor(Date.now() / 1000); // Capture event time
 
-    sendEvent("viewedLander", sourceUrl, userAgent, eventId);
+    sendEvent("viewedLander", sourceUrl, userAgent, eventId, eventTime);
 
     const trackFacebookEvent = () => {
       if (window.fbq) {
-        // Add Facebook Pixel event with event_id
+        // Add Facebook Pixel event with event_id and event_time
         window.fbq("track", "ViewContent", {
           event_name: "viewedLander",
           event_id: eventId,
+          event_time: eventTime,
         });
       } else {
         setTimeout(trackFacebookEvent, 100); // Retry after a short delay
