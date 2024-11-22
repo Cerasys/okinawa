@@ -32,6 +32,11 @@
     margin-top: 20px;
     width: 60%;
     background-color: #2e2e2e;
+    border-radius: 16px;
+}
+
+.thankyou-background .container h1 {
+    color: white;
 }
 
 .thankyou-background .container .text-section {

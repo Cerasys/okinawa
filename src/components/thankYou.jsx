@@ -14,8 +14,14 @@ const ThankYou = () => {
         Step 1: Go To Your Email And <u>REPLY</u>, Then{" "}
         <u>Add The Event To Your Calendar</u>
       </h1>
-      TODO: ADD MOBILE IMAGE
-      <img src="/img/confirmBooking.png" />
+      <picture>
+        <source
+          media="(max-width: 768px)"
+          srcSet="/img/mobile-confirm.jpg"
+          alt="Confirm Booking"
+        />
+        <img src="/img/confirmBooking.png" alt="Confirm Booking" />
+      </picture>{" "}
       <br />
       <a
         href="https://mail.google.com/mail/u/0/#search/Nathan+Lee"
@@ -46,7 +52,7 @@ const ThankYou = () => {
         </div>
         <div className="button-section">
           <a
-            href="https://mail.google.com/"
+            href="https://mail.google.com/mail/u/0/#search/Nathan+Lee"
             target="_blank"
             rel="noopener noreferrer"
             className="email-button"
@@ -84,11 +90,13 @@ const ThankYou = () => {
           title="Thank You Video"
         ></iframe>
       </div>
-      <h2>Here's Your Next Step</h2>
-      <p>
-        After watching the video, please make sure to check your email for
-        further instructions. We look forward to speaking with you soon!
-      </p>
+      <div className="container">
+        <h1>
+          Step 4: See How We Took 32 People From $0k/mo To $10k-$40k/mo In 3-12
+          Months Using Our System...
+        </h1>
+        <p></p>
+      </div>
       <img
         className="thankyou-image"
         src="/img/successImage.jpg" // Replace with your image path
