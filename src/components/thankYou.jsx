@@ -1,10 +1,15 @@
 import React, { useEffect, useMemo } from "react";
 import axios from "axios";
+import CryptoJS from "crypto-js"; // Import the crypto-js module
 import "./thankYou.css"; // Import the CSS file
 import { useLocation } from "react-router-dom";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
+};
+
+const hashValue = (value) => {
+  return CryptoJS.SHA256(value.trim().toLowerCase()).toString(CryptoJS.enc.Hex);
 };
 
 const sendEvent = async (event, value, currency, userData) => {
@@ -16,8 +21,8 @@ const sendEvent = async (event, value, currency, userData) => {
     event_source_url: window.location.href,
     client_ip_address: "", // You can use a service to get the client IP if needed
     client_user_agent: navigator.userAgent,
-    email: userData.email,
-    phone: userData.phone,
+    email: userData.email ? hashValue(userData.email) : null,
+    phone: userData.phone ? hashValue(userData.phone) : null,
   });
 };
 
