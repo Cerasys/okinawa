@@ -56,12 +56,15 @@ exports.handler = async (event, context) => {
       }),
     };
   } catch (error) {
-    console.log("Error sending event:", error);
+    console.log(
+      "Error sending event:",
+      error.response ? error.response.data : error.message
+    );
     return {
       statusCode: 500,
       body: JSON.stringify({
         message: "Error sending event",
-        error: error.message,
+        error: error.response ? error.response.data : error.message,
       }),
     };
   }
