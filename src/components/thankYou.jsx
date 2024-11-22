@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import axios from "axios";
 import "./thankYou.css"; // Import the CSS file
 import { useLocation } from "react-router-dom";
@@ -24,18 +24,21 @@ const sendEvent = async (event, value, currency, userData) => {
 const ThankYou = () => {
   const query = useQuery();
 
-  const userData = {
-    fullName: query.get("invitee_full_name"),
-    firstName: query.get("invitee_first_name"),
-    lastName: query.get("invitee_last_name"),
-    email: query.get("invitee_email"),
-    phone: query.get("answer_1"), // Using answer_1 for phone number
-  };
+  const userData = useMemo(
+    () => ({
+      fullName: query.get("invitee_full_name"),
+      firstName: query.get("invitee_first_name"),
+      lastName: query.get("invitee_last_name"),
+      email: query.get("invitee_email"),
+      phone: query.get("answer_1"), // Using answer_1 for phone number
+    }),
+    [query]
+  );
 
   useEffect(() => {
     document.title = "Confirm Your Call via Email";
     sendEvent("Lead", 0, "USD", userData);
-  }, []);
+  }, [userData]);
 
   return (
     <div className="thankyou-background">
