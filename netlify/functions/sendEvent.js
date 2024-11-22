@@ -4,12 +4,20 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.handler = async (event, context) => {
-  const {
-    event: eventType,
-    value,
-    currency,
-    test_event_code,
-  } = JSON.parse(event.body);
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch (error) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Invalid JSON input",
+        error: error.message,
+      }),
+    };
+  }
+
+  const { event: eventType, value, currency, test_event_code } = body;
   const accessToken = process.env.FACEBOOK_ACCESS_TOKEN;
   const pixelId = process.env.FACEBOOK_PIXEL_ID;
 
