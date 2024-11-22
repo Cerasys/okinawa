@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import CryptoJS from "crypto-js"; // Import the crypto-js module
 import "./thankYou.css"; // Import the CSS file
@@ -12,14 +12,24 @@ const hashValue = (value) => {
   return CryptoJS.SHA256(value.trim().toLowerCase()).toString(CryptoJS.enc.Hex);
 };
 
-const sendEvent = async (event, value, currency, userData) => {
+const fetchIPAddress = async () => {
+  try {
+    const response = await axios.get("https://api.ipify.org?format=json");
+    return response.data.ip;
+  } catch (error) {
+    console.error("Error fetching IP address:", error);
+    return "";
+  }
+};
+
+const sendEvent = async (event, value, currency, userData, clientIpAddress) => {
   await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
     value,
     currency,
     test_event_code: "TEST18837",
     event_source_url: window.location.href,
-    client_ip_address: "", // You can use a service to get the client IP if needed
+    client_ip_address: clientIpAddress,
     client_user_agent: navigator.userAgent,
     email: userData.email ? hashValue(userData.email) : null,
     phone: userData.phone ? hashValue(userData.phone) : null,
@@ -27,6 +37,7 @@ const sendEvent = async (event, value, currency, userData) => {
 };
 
 const ThankYou = () => {
+  const [clientIp, setClientIp] = useState("");
   const query = useQuery();
 
   const userData = useMemo(
@@ -42,7 +53,14 @@ const ThankYou = () => {
 
   useEffect(() => {
     document.title = "Confirm Your Call via Email";
-    sendEvent("Lead", 0, "USD", userData);
+
+    const fetchAndSendEvent = async () => {
+      const ip = await fetchIPAddress();
+      setClientIp(ip);
+      sendEvent("Lead", 0, "USD", userData, ip);
+    };
+
+    fetchAndSendEvent();
   }, [userData]);
 
   return (
