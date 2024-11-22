@@ -1,36 +1,13 @@
 import React, { useEffect } from "react";
 import Footer from "./footer";
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid"; // Import the uuid library
+import { sendEvent } from "./util/sendEvent";
 import "./lander.css"; // Import the CSS file
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(";").shift();
-};
-
-const sendEvent = async (
-  event,
-  event_source_url,
-  client_user_agent,
-  event_id,
-  event_time,
-  clickId,
-  browserId,
-  externalId
-) => {
-  await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
-    event,
-    event_source_url,
-    client_user_agent,
-    event_id: event_id,
-    event_time: event_time, // Add event_time
-    fbc: clickId, // Add click ID
-    fbp: browserId, // Add browser ID
-    external_id: externalId, // Add external ID
-    // test_event_code: "TEST18837", // Commented out test_event_code
-  });
 };
 
 const Lander = () => {
@@ -40,16 +17,20 @@ const Lander = () => {
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
-    const sourceUrl = window.location.href;
     const eventId = uuidv4(); // Generate a unique event ID
     const eventTime = Math.floor(Date.now() / 1000); // Capture event time
     const clickId = getCookie("_fbc"); // Get Click ID from cookies
     const browserId = getCookie("_fbp"); // Get Browser ID from cookies
     const externalId = uuidv4(); // Generate an external ID, adjust as needed
 
+    const userData = { email: null, phone: null }; // You may need to pass actual user data here
+
     sendEvent(
       "viewedLander",
-      sourceUrl,
+      0,
+      "USD",
+      userData,
+      null,
       userAgent,
       eventId,
       eventTime,
@@ -68,6 +49,7 @@ const Lander = () => {
           fbc: clickId,
           fbp: browserId,
           external_id: externalId,
+          // test_event_code: "TEST18837", // Commented out test_event_code
         });
       } else {
         setTimeout(trackFacebookEvent, 100); // Retry after a short delay

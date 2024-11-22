@@ -32,7 +32,11 @@ exports.handler = async (event, context) => {
     client_user_agent,
     email,
     phone,
+    fbc,
+    fbp,
+    external_id,
   } = body;
+
   console.log("Event Type:", eventType);
   console.log("Value:", value);
   console.log("Currency:", currency);
@@ -43,39 +47,45 @@ exports.handler = async (event, context) => {
   console.log("Client User Agent:", client_user_agent);
   console.log("Email:", email);
   console.log("Phone:", phone);
+  console.log("FBC:", fbc);
+  console.log("FBP:", fbp);
+  console.log("External ID:", external_id);
 
   const accessToken = process.env.FACEBOOK_ACCESS_TOKEN;
   const pixelId = process.env.FACEBOOK_PIXEL_ID;
 
-  let eventData = {
+  const eventData = {
     event_name: eventType,
     event_time: Math.floor(Date.now() / 1000),
     action_source: "website",
     event_source_url: event_source_url,
     user_data: {
-      client_ip_address: client_ip_address,
-      client_user_agent: client_user_agent,
-      em: [email],
-      ph: [phone],
+      em: email ? [email] : [],
+      ph: phone ? [phone] : [],
+      fbc: fbc || null,
+      fbp: fbp || null,
+      external_id: external_id ? [external_id] : [],
+      client_ip_address: client_ip_address || null,
+      client_user_agent: client_user_agent || null,
     },
     custom_data: {
       currency: currency,
       value: value,
     },
-    original_event_data: {
-      event_name: eventType,
-      event_time: Math.floor(Date.now() / 1000),
-    },
   };
 
   try {
-    const response = await axios.post(
-      `https://graph.facebook.com/v11.0/${pixelId}/events?test_event_code=${test_event_code}`,
-      {
-        access_token: accessToken,
-        data: [eventData],
-      }
-    );
+    const url = `https://graph.facebook.com/v11.0/${pixelId}/events`;
+    const payload = {
+      access_token: accessToken,
+      data: [eventData],
+    };
+
+    if (test_event_code) {
+      payload.test_event_code = test_event_code;
+    }
+
+    const response = await axios.post(url, payload);
     console.log("Response:", response.data);
     return {
       statusCode: 200,
