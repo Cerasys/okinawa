@@ -12,6 +12,7 @@ const sendEvent = async (event, value, currency) => {
     event,
     value,
     currency,
+    test_event_code: "TEST18837",
   });
 };
 

@@ -4,7 +4,12 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.handler = async (event, context) => {
-  const { event: eventType, value, currency } = JSON.parse(event.body);
+  const {
+    event: eventType,
+    value,
+    currency,
+    test_event_code,
+  } = JSON.parse(event.body);
   const accessToken = process.env.FACEBOOK_ACCESS_TOKEN;
   const pixelId = process.env.FACEBOOK_PIXEL_ID;
 
@@ -15,6 +20,7 @@ exports.handler = async (event, context) => {
         access_token: accessToken,
         event_name: eventType,
         event_time: Math.floor(Date.now() / 1000),
+        test_event_code: test_event_code,
         user_data: {
           // Add user data here, e.g., email, phone, etc.
         },
