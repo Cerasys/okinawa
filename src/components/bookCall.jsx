@@ -19,7 +19,7 @@ const BookCall = () => {
   useEffect(() => {
     const userAgent = navigator.userAgent;
     const sourceUrl = window.location.href;
-    sendEvent("viewBookCall", sourceUrl, userAgent);
+    sendEvent("viewedBookCall", sourceUrl, userAgent);
   }, []);
 
   return (
