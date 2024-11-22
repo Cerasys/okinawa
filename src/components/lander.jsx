@@ -71,7 +71,9 @@ const Lander = () => {
         </h2>
 
         <a href="/book-a-call" className="lander-button">
-          Schedule Your Call Here + Fully Book Your Calendar
+          Schedule Your Call Here
+          <br />
+          <span className="smaller-text"> + Fully Book Your Calendar</span>
         </a>
 
         <Footer />

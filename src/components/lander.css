@@ -83,6 +83,10 @@ iframe {
     overflow: hidden;
 }
 
+.smaller-text {
+    font-size: 16px;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .lander-background {
