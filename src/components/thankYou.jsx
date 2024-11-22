@@ -1,18 +1,62 @@
 import React, { useEffect, useMemo } from "react";
 import axios from "axios";
+import CryptoJS from "crypto-js"; // Import the crypto-js module
 import { v4 as uuidv4 } from "uuid"; // Import the uuid library
 import "./thankYou.css"; // Import the CSS file
 import { useLocation } from "react-router-dom";
-import { sendEvent } from "./util/sendEvent";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
+};
+
+const hashValue = (value) => {
+  return CryptoJS.SHA256(value.trim().toLowerCase()).toString(CryptoJS.enc.Hex);
 };
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(";").shift();
+};
+
+const fetchIPAddress = async () => {
+  try {
+    const response = await axios.get("https://api.ipify.org?format=json");
+    return response.data.ip;
+  } catch (error) {
+    console.error("Error fetching IP address:", error);
+    return "";
+  }
+};
+
+const sendEvent = async (
+  event,
+  value,
+  currency,
+  userData,
+  clientIpAddress,
+  eventId,
+  eventTime,
+  clickId,
+  browserId,
+  externalId
+) => {
+  await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
+    event,
+    value,
+    currency,
+    event_source_url: window.location.href,
+    client_ip_address: clientIpAddress,
+    client_user_agent: navigator.userAgent, // Include user agent
+    email: userData.email ? hashValue(userData.email) : null,
+    phone: userData.phone ? hashValue(userData.phone) : null,
+    event_id: eventId,
+    event_time: eventTime, // Add event time
+    fbc: clickId, // Add click ID
+    fbp: browserId, // Add browser ID
+    external_id: externalId, // Add external ID
+    // test_event_code: "TEST18837", // Commented out test_event_code
+  });
 };
 
 const ThankYou = () => {
@@ -32,18 +76,9 @@ const ThankYou = () => {
   useEffect(() => {
     document.title = "Confirm Your Call via Email";
 
-    const fetchIPAddress = async () => {
-      try {
-        const response = await axios.get("https://api.ipify.org?format=json");
-        return response.data.ip;
-      } catch (error) {
-        console.error("Error fetching IP address:", error);
-        return "";
-      }
-    };
-
     const fetchAndSendEvent = async () => {
       const ip = await fetchIPAddress();
+
       const eventId = uuidv4(); // Generate a unique event ID
       const eventTime = Math.floor(Date.now() / 1000); // Capture event time
       const clickId = getCookie("_fbc"); // Get Click ID from cookies
@@ -56,7 +91,6 @@ const ThankYou = () => {
         "USD",
         userData,
         ip,
-        navigator.userAgent,
         eventId,
         eventTime,
         clickId,
@@ -74,7 +108,6 @@ const ThankYou = () => {
           fbc: clickId,
           fbp: browserId,
           external_id: externalId,
-          // test_event_code: "TEST18837", // Commented out test_event_code
         });
       } else {
         setTimeout(() => {
@@ -87,7 +120,6 @@ const ThankYou = () => {
               fbc: clickId,
               fbp: browserId,
               external_id: externalId,
-              // test_event_code: "TEST18837", // Commented out test_event_code
             });
           }
         }, 100); // Retry after a short delay
