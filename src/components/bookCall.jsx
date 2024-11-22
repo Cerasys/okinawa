@@ -1,9 +1,25 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import "./bookCall.css"; // Import the CSS file
+
+const sendEvent = async (event, event_source_url, client_user_agent) => {
+  await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
+    event,
+    event_source_url,
+    client_user_agent,
+    test_event_code: "TEST18837",
+  });
+};
 
 const BookCall = () => {
   useEffect(() => {
     document.title = "Application";
+  }, []);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    const sourceUrl = window.location.href;
+    sendEvent("viewBookCall", sourceUrl, userAgent);
   }, []);
 
   return (

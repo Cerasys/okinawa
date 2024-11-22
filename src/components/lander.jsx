@@ -1,10 +1,26 @@
 import React, { useEffect } from "react";
 import Footer from "./footer";
+import axios from "axios";
 import "./lander.css"; // Import the CSS file
+
+const sendEvent = async (event, event_source_url, client_user_agent) => {
+  await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
+    event,
+    event_source_url,
+    client_user_agent,
+    test_event_code: "TEST18837",
+  });
+};
 
 const Lander = () => {
   useEffect(() => {
     document.title = "Free Video Guide";
+  }, []);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    const sourceUrl = window.location.href;
+    sendEvent("viewedLander", sourceUrl, userAgent);
   }, []);
 
   return (

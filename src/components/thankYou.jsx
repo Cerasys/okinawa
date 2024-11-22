@@ -7,12 +7,17 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 
-const sendEvent = async (event, value, currency) => {
+const sendEvent = async (event, value, currency, userData) => {
   await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
     value,
     currency,
     test_event_code: "TEST18837",
+    event_source_url: window.location.href,
+    client_ip_address: "", // You can use a service to get the client IP if needed
+    client_user_agent: navigator.userAgent,
+    email: userData.email,
+    phone: userData.phone,
   });
 };
 
@@ -29,7 +34,7 @@ const ThankYou = () => {
 
   useEffect(() => {
     document.title = "Confirm Your Call via Email";
-    sendEvent("Lead", 0, "USD");
+    sendEvent("Lead", 0, "USD", userData);
   }, []);
 
   return (
