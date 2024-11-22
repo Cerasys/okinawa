@@ -1,15 +1,42 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import "./thankYou.css"; // Import the CSS file
+import { useLocation } from "react-router-dom";
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
+const sendEvent = async (event, value, currency) => {
+  await axios.post("https://lp.hoshinomedia.com/send-event", {
+    event,
+    value,
+    currency,
+  });
+};
 
 const ThankYou = () => {
+  const query = useQuery();
+
+  const userData = {
+    fullName: query.get("invitee_full_name"),
+    firstName: query.get("invitee_first_name"),
+    lastName: query.get("invitee_last_name"),
+    email: query.get("invitee_email"),
+    phone: query.get("answer_1"), // Using answer_1 for phone number
+  };
+
   useEffect(() => {
     document.title = "Confirm Your Call via Email";
+    sendEvent("Lead", 0, "USD");
   }, []);
 
   return (
     <div className="thankyou-background">
       <br />
-      <h1 className="warning">WARNING: Your Call Is NOT Confirmed...</h1>
+      <h1 className="warning">
+        WARNING {userData.firstName}: Your Call Is NOT Confirmed...
+      </h1>
       <h1>
         Step 1: Go To Your Email And <u>REPLY</u>, Then{" "}
         <u>Add The Event To Your Calendar</u>
@@ -32,7 +59,7 @@ const ThankYou = () => {
         Open Gmail to Confirm My Call (Reply to the Email)
       </a>
       <p>
-        We all hate tire kickers. As a curtesy to us, we ask that you reply to
+        We all hate tire kickers. As a courtesy to us, we ask that you reply to
         the email right away. Unconfirmed calls will be cancelled and your IP
         address will be automatically banned from booking again.
       </p>
