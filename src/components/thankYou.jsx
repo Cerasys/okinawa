@@ -30,33 +30,45 @@ const fetchIPAddress = async () => {
 };
 
 const sendEvent = async (
-  event,
+  event_name,
   value,
   currency,
   userData,
-  clientIpAddress,
-  eventId,
-  eventTime,
-  clickId,
-  browserId,
-  externalId
+  client_ip_address,
+  client_user_agent,
+  event_id,
+  event_time,
+  fbc,
+  fbp,
+  external_id
 ) => {
-  await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
-    event,
-    value,
-    currency,
-    event_source_url: window.location.href,
-    client_ip_address: clientIpAddress,
-    client_user_agent: navigator.userAgent, // Include user agent
-    email: userData.email ? hashValue(userData.email) : null,
-    phone: userData.phone ? hashValue(userData.phone) : null,
-    event_id: eventId,
-    event_time: eventTime, // Add event time
-    fbc: clickId, // Add click ID
-    fbp: browserId, // Add browser ID
-    external_id: externalId, // Add external ID
-    // test_event_code: "TEST18837", // Commented out test_event_code
-  });
+  const payload = {
+    data: [
+      {
+        event_name: event_name,
+        event_time: event_time,
+        action_source: "website",
+        user_data: {
+          em: userData.email ? [hashValue(userData.email)] : [],
+          ph: userData.phone ? [hashValue(userData.phone)] : [],
+          fbc: fbc,
+          fbp: fbp,
+          external_id: [external_id],
+          client_ip_address: client_ip_address,
+          client_user_agent: client_user_agent,
+        },
+        custom_data: {
+          currency: currency,
+          value: value,
+        },
+      },
+    ],
+  };
+
+  await axios.post(
+    "https://lp.hoshinomedia.com/.netlify/functions/sendEvent",
+    payload
+  );
 };
 
 const ThankYou = () => {
@@ -91,6 +103,7 @@ const ThankYou = () => {
         "USD",
         userData,
         ip,
+        navigator.userAgent,
         eventId,
         eventTime,
         clickId,

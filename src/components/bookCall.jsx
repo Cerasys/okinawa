@@ -10,26 +10,40 @@ const getCookie = (name) => {
 };
 
 const sendEvent = async (
-  event,
+  event_name,
   event_source_url,
   client_user_agent,
   event_id,
   event_time,
-  clickId,
-  browserId,
-  externalId
+  fbc,
+  fbp,
+  external_id
 ) => {
-  await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
-    event,
-    event_source_url,
-    client_user_agent,
-    event_id: event_id,
-    event_time: event_time, // Add event_time
-    fbc: clickId, // Add click ID
-    fbp: browserId, // Add browser ID
-    external_id: externalId, // Add external ID
-    // test_event_code: "TEST18837", // Commented out test_event_code
-  });
+  const payload = {
+    data: [
+      {
+        event_name: event_name,
+        event_time: event_time,
+        action_source: "website",
+        user_data: {
+          client_ip_address: null, // Modify as needed to capture actual client IP
+          client_user_agent: client_user_agent,
+          fbc: fbc,
+          fbp: fbp,
+          external_id: [external_id],
+        },
+        custom_data: {
+          currency: "USD", // Modify as needed
+          value: 0, // Modify as needed
+        },
+      },
+    ],
+  };
+
+  await axios.post(
+    "https://lp.hoshinomedia.com/.netlify/functions/sendEvent",
+    payload
+  );
 };
 
 const BookCall = () => {
