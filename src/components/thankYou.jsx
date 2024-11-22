@@ -8,7 +8,7 @@ const useQuery = () => {
 };
 
 const sendEvent = async (event, value, currency) => {
-  await axios.post("https://lp.hoshinomedia.com/send-event", {
+  await axios.post("https://lp.hoshinomedia.com/.netlify/functions/sendEvent", {
     event,
     value,
     currency,
