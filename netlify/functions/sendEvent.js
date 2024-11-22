@@ -35,16 +35,20 @@ exports.handler = async (event, context) => {
       `https://graph.facebook.com/v11.0/${pixelId}/events`,
       {
         access_token: accessToken,
-        event_name: eventType,
-        event_time: Math.floor(Date.now() / 1000),
-        test_event_code: test_event_code,
-        user_data: {
-          // Add user data here, e.g., email, phone, etc.
-        },
-        custom_data: {
-          value: value,
-          currency: currency,
-        },
+        data: [
+          {
+            event_name: eventType,
+            event_time: Math.floor(Date.now() / 1000),
+            test_event_code: test_event_code,
+            user_data: {
+              // Add user data here, e.g., email, phone, etc.
+            },
+            custom_data: {
+              value: value,
+              currency: currency,
+            },
+          },
+        ],
       }
     );
     console.log("Response:", response.data);
