@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import Footer from "./footer";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid"; // Import the uuid library
+import CryptoJS from "crypto-js"; // Import the crypto-js module
 import "./lander.css"; // Import the CSS file
+
+const hashValue = (value) => {
+  return CryptoJS.SHA256(value.trim().toLowerCase()).toString(CryptoJS.enc.Hex);
+};
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -10,9 +15,22 @@ const getCookie = (name) => {
   if (parts.length === 2) return parts.pop().split(";").shift();
 };
 
+const fetchIPAddress = async () => {
+  try {
+    const response = await axios.get("https://api.ipify.org?format=json");
+    return response.data.ip;
+  } catch (error) {
+    console.error("Error fetching IP address:", error);
+    return "";
+  }
+};
+
 const sendEvent = async (
   event_name,
-  event_source_url,
+  value,
+  currency,
+  userData,
+  client_ip_address,
   client_user_agent,
   event_id,
   event_time,
@@ -21,30 +39,30 @@ const sendEvent = async (
   external_id
 ) => {
   const payload = {
-    data: [
-      {
-        event_name: event_name,
-        event_time: event_time,
-        action_source: "website",
-        user_data: {
-          client_ip_address: null, // Modify as needed to capture actual client IP
-          client_user_agent: client_user_agent,
-          fbc: fbc,
-          fbp: fbp,
-          external_id: [external_id],
-        },
-        custom_data: {
-          currency: "USD", // Modify as needed
-          value: 0, // Modify as needed
-        },
-      },
-    ],
+    event: event_name,
+    value: value,
+    currency: currency,
+    event_id: event_id,
+    event_source_url: window.location.href,
+    client_ip_address: client_ip_address,
+    client_user_agent: client_user_agent,
+    email: userData.email ? hashValue(userData.email) : null,
+    phone: userData.phone ? hashValue(userData.phone) : null,
+    event_time: event_time,
+    fbc: fbc,
+    fbp: fbp,
+    external_id: external_id,
+    // test_event_code: "TEST18837", // Commented out test_event_code
   };
 
-  await axios.post(
-    "https://lp.hoshinomedia.com/.netlify/functions/sendEvent",
-    payload
-  );
+  try {
+    await axios.post(
+      "https://lp.hoshinomedia.com/.netlify/functions/sendEvent",
+      JSON.stringify(payload) // Ensure the payload is properly stringified
+    );
+  } catch (error) {
+    console.error("Error sending event:", error);
+  }
 };
 
 const Lander = () => {
@@ -53,42 +71,52 @@ const Lander = () => {
   }, []);
 
   useEffect(() => {
-    const userAgent = navigator.userAgent;
-    const sourceUrl = window.location.href;
-    const eventId = uuidv4(); // Generate a unique event ID
-    const eventTime = Math.floor(Date.now() / 1000); // Capture event time
-    const clickId = getCookie("_fbc"); // Get Click ID from cookies
-    const browserId = getCookie("_fbp"); // Get Browser ID from cookies
-    const externalId = uuidv4(); // Generate an external ID, adjust as needed
+    const initializeEvent = async () => {
+      const userAgent = navigator.userAgent;
+      const eventId = uuidv4(); // Generate a unique event ID
+      const eventTime = Math.floor(Date.now() / 1000); // Capture event time
+      const clickId = getCookie("_fbc"); // Get Click ID from cookies
+      const browserId = getCookie("_fbp"); // Get Browser ID from cookies
+      const externalId = uuidv4(); // Generate an external ID, adjust as needed
 
-    sendEvent(
-      "viewedLander",
-      sourceUrl,
-      userAgent,
-      eventId,
-      eventTime,
-      clickId,
-      browserId,
-      externalId
-    );
+      const ip = await fetchIPAddress();
+      const userData = { email: null, phone: null }; // You may need to pass actual user data here
 
-    const trackFacebookEvent = () => {
-      if (window.fbq) {
-        // Add Facebook Pixel event with event_id and event_time
-        window.fbq("track", "ViewContent", {
-          event_name: "viewedLander",
-          event_id: eventId,
-          event_time: eventTime,
-          fbc: clickId,
-          fbp: browserId,
-          external_id: externalId,
-        });
-      } else {
-        setTimeout(trackFacebookEvent, 100); // Retry after a short delay
-      }
+      sendEvent(
+        "viewedLander",
+        0,
+        "USD",
+        userData,
+        ip,
+        userAgent,
+        eventId,
+        eventTime,
+        clickId,
+        browserId,
+        externalId
+      );
+
+      const trackFacebookEvent = () => {
+        if (window.fbq) {
+          // Add Facebook Pixel event with event_id and event_time
+          window.fbq("track", "ViewContent", {
+            event_name: "viewedLander",
+            event_id: eventId,
+            event_time: eventTime,
+            fbc: clickId,
+            fbp: browserId,
+            external_id: externalId,
+            // test_event_code: "TEST18837", // Commented out test_event_code
+          });
+        } else {
+          setTimeout(trackFacebookEvent, 100); // Retry after a short delay
+        }
+      };
+
+      trackFacebookEvent();
     };
 
-    trackFacebookEvent();
+    initializeEvent();
   }, []);
 
   return (
@@ -111,7 +139,7 @@ const Lander = () => {
               textTransform: "uppercase",
             }}
           >
-            WITH AT LEAST $30 A DAY
+            WITH AT LEAST $50 A DAY
           </span>
         </h3>
 

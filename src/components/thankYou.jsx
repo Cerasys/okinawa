@@ -43,32 +43,30 @@ const sendEvent = async (
   external_id
 ) => {
   const payload = {
-    data: [
-      {
-        event_name: event_name,
-        event_time: event_time,
-        action_source: "website",
-        user_data: {
-          em: userData.email ? [hashValue(userData.email)] : [],
-          ph: userData.phone ? [hashValue(userData.phone)] : [],
-          fbc: fbc,
-          fbp: fbp,
-          external_id: [external_id],
-          client_ip_address: client_ip_address,
-          client_user_agent: client_user_agent,
-        },
-        custom_data: {
-          currency: currency,
-          value: value,
-        },
-      },
-    ],
+    event: event_name,
+    value: value,
+    currency: currency,
+    event_id: event_id,
+    event_source_url: window.location.href,
+    client_ip_address: client_ip_address,
+    client_user_agent: client_user_agent,
+    email: userData.email ? hashValue(userData.email) : null,
+    phone: userData.phone ? hashValue(userData.phone) : null,
+    event_time: event_time,
+    fbc: fbc,
+    fbp: fbp,
+    external_id: external_id,
+    // test_event_code: "TEST18837", // Commented out test_event_code
   };
 
-  await axios.post(
-    "https://lp.hoshinomedia.com/.netlify/functions/sendEvent",
-    payload
-  );
+  try {
+    await axios.post(
+      "https://lp.hoshinomedia.com/.netlify/functions/sendEvent",
+      JSON.stringify(payload) // Ensure the payload is properly stringified
+    );
+  } catch (error) {
+    console.error("Error sending event:", error);
+  }
 };
 
 const ThankYou = () => {
@@ -97,7 +95,7 @@ const ThankYou = () => {
       const browserId = getCookie("_fbp"); // Get Browser ID from cookies
       const externalId = uuidv4(); // Generate an external ID, adjust as needed
 
-      sendEvent(
+      await sendEvent(
         "Lead",
         0,
         "USD",
@@ -121,6 +119,7 @@ const ThankYou = () => {
           fbc: clickId,
           fbp: browserId,
           external_id: externalId,
+          // test_event_code: "TEST18837", // Commented out test_event code
         });
       } else {
         setTimeout(() => {
