@@ -51,6 +51,8 @@
 .thankyou-background .container .text-section p {
     font-size: 16px;
     margin-left: 0;
+    color: white;
+    margin: 10px auto;
 }
 
 .thankyou-background .container .button-section {
@@ -58,7 +60,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 10%;
+    margin: 10px auto;
 }
 
 .thankyou-background .container .email-button {
