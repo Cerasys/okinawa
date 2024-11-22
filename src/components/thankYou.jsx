@@ -55,7 +55,7 @@ const sendEvent = async (
     fbc: clickId, // Add click ID
     fbp: browserId, // Add browser ID
     external_id: externalId, // Add external ID
-    test_event_code: "TEST18837", // Commented out test_event_code
+    // test_event_code: "TEST18837", // Commented out test_event_code
   });
 };
 
