@@ -172,6 +172,17 @@ const Lander = () => {
             allow="fullscreen"
           />
         </div>
+        <p>
+          If the presentation doesn't load,{" "}
+          <a
+            href="https://www.canva.com/design/DAGVFBMKpGg/1zBU6335FRMJ69-iP6C9ww/view?open"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            click here to open it in a new tab
+          </a>
+          .
+        </p>
 
         <h2>
           <b>
