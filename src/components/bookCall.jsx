@@ -67,9 +67,7 @@ const sendEvent = async (
 const BookCall = () => {
   useEffect(() => {
     document.title = "Application";
-  }, []);
 
-  useEffect(() => {
     const initializeEvent = async () => {
       const userAgent = navigator.userAgent;
       const eventId = uuidv4(); // Generate a unique event ID
@@ -116,6 +114,21 @@ const BookCall = () => {
     };
 
     initializeEvent();
+
+    // Load Calendly widget script
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    script.onload = () => {
+      // Initialize Calendly widget after script is loaded
+      if (window.Calendly) {
+        window.Calendly.initInlineWidget({
+          url: "https://calendly.com/nathanblee/growth-blueprint-call?primary_color=ff6f3c",
+          parentElement: document.querySelector(".calendly-inline-widget"),
+        });
+      }
+    };
+    document.body.appendChild(script);
   }, []);
 
   return (
@@ -130,16 +143,7 @@ const BookCall = () => {
         <b>⏳ Please give the calendar a few seconds to load ⏳</b>
         <br />
       </div>
-      <div
-        className="calendly-inline-widget"
-        data-url="https://calendly.com/nathanblee/growth-blueprint-call?primary_color=ff6f3c"
-      ></div>
-
-      <script
-        type="text/javascript"
-        src="https://assets.calendly.com/assets/external/widget.js"
-        async
-      ></script>
+      <div className="calendly-inline-widget"></div>
     </div>
   );
 };
