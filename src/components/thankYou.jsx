@@ -218,7 +218,7 @@ const ThankYou = () => {
       <div className="video-container">
         {/* Embed Vimeo video */}
         <iframe
-          src="https://player.vimeo.com/video/1029120494" // Replace with your Vimeo video ID
+          src="https://player.vimeo.com/video/1033700491" // Replace with your Vimeo video ID
           width="100%"
           height="400px"
           frameBorder="0"
