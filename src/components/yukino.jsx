@@ -9,20 +9,14 @@ const Yukino = () => {
 
   return (
     <div className="lander-background">
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "1100px",
-          margin: "0 auto",
-          padding: "20px",
-        }}
-      >
+      <div className="lander-container">
         <MessageDisplay
           codeAfter={
             <React.Fragment>
               <h1>Hey babe, Merry Christmas!</h1>
               <h3>Wish I could be with you in person. </h3>
               <h3> But I guess you get Jessica instead 😂</h3>
+              <hr />
               <h4>
                 I'm writing this on 12/15 as we're talking about timeline and
                 hairstyles and how dating is hard
@@ -31,7 +25,7 @@ const Yukino = () => {
                 It's been kind of a crazy 2 months with lots of change and
                 emotions and ideas and time flexibility
               </h4>
-              <br />
+              <hr /> <br />
               <h4>
                 <u>Two months ago I never thought I'd:</u>
                 <ul className="list-centered">
@@ -52,11 +46,14 @@ const Yukino = () => {
                   </li>
                 </ul>
               </h4>
+              <hr />
               <br />
               <br />
               <h3>Anywho.</h3>
               <h2>
-                Merry Christmas. Miss you a ton, and hope to see you in
+                Merry Christmas. You have been the most disruptive thing in my
+                life, in a lot of good, beautiful, hard things. <br />
+                <br /> Miss you a ton, and hope to see you in
                 <br />
                 <s>February</s> <br /> uhh <br /> <s>March</s> uhhhhhhhh <br />
                 <br /> i dunno some time in the next few months haha
