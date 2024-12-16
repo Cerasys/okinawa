@@ -13,7 +13,11 @@ const Yukino = () => {
         <MessageDisplay
           codeAfter={
             <React.Fragment>
-              <h1>Hey babe, Merry Christmas!</h1>
+              <h1>🎄🎄 Hey babe, Merry Christmas! 🎄🎄</h1>
+              <h5>
+                P.S., the main video is hosted at okinawa.nathanblee.com but
+                this is a special page just for you 😜
+              </h5>
               <h3>Wish I could be with you in person. </h3>
               <h3> But I guess you get Jessica instead 😂</h3>
               <hr />
@@ -51,8 +55,9 @@ const Yukino = () => {
               <br />
               <h3>Anywho.</h3>
               <h2>
-                Merry Christmas. You have been the most disruptive thing in my
-                life, in a lot of good, beautiful, hard things. <br />
+                Merry Christmas. <br />
+                You have been the most disruptive thing in my life, in a lot of
+                good, beautiful, hard things. <br />
                 <br /> Miss you a ton, and hope to see you in
                 <br />
                 <s>February</s> <br /> uhh <br /> <s>March</s> uhhhhhhhh <br />

@@ -9,7 +9,7 @@ const Lander = () => {
         <MessageDisplay
           codeAfter={
             <React.Fragment>
-              <h1>Merry Christmas!</h1>
+              <h1>🎄🎄 Merry Christmas! 🎄🎄</h1>
               <h4>
                 I'm writing this on 12/15 and I realize it's been more than a
                 year to make this video.
@@ -36,6 +36,7 @@ const Lander = () => {
                 </ul>
               </h4>
               <hr />
+              <h3>Anywho.</h3>
               <h2>
                 Merry Christmas. <br /> This was an amazing, wonderful, chaotic,
                 trip. <br />
