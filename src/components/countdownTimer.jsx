@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 
-const CountdownTimer = () => {
-  // Set the target date and time (9pm JST on Dec 25th, 2024)
-  const targetDate = new Date("2024-12-25T21:00:00+09:00").getTime();
+const CountdownTimer = ({ targetDate }) => {
+  // Set the target date to 9 PM JST on December 25th, 2024
 
-  // Set up state to store the remaining time
   const [timeRemaining, setTimeRemaining] = useState(
     targetDate - new Date().getTime()
   );
 
   useEffect(() => {
-    // Update the countdown every second
     const interval = setInterval(() => {
       const currentTime = new Date().getTime();
       const difference = targetDate - currentTime;
       setTimeRemaining(difference);
+
+      // If the countdown reaches 0, refresh the page
+      if (difference <= 0) {
+        clearInterval(interval);
+        window.location.reload(); // Refresh the page
+      }
     }, 1000);
 
     // Clear the interval when the component unmounts
@@ -33,11 +36,11 @@ const CountdownTimer = () => {
     <div>
       {timeRemaining > 0 ? (
         <div>
-          <h1>Countdown to 9pm JST, Dec 25th, 2024:</h1>
+          <h1>Countdown to Christmas 9 PM JST, Dec 25th, 2024:</h1>
           <h3>{`${days}d ${hours}h ${minutes}m ${seconds}s`}</h3>
         </div>
       ) : (
-        <React.Fragment />
+        <h1>It's Christmas! The page will refresh now.</h1>
       )}
     </div>
   );
