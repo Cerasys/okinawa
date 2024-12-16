@@ -1,0 +1,164 @@
+/* General Styles */
+.lander-background {
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('/public/img/whiteGeo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    min-width: 100vw;
+    font-family: Poppins, sans-serif;
+    color: black;
+}
+
+.list-centered {
+    list-style-position: inside;
+    /* Moves the bullet closer to the text */
+    padding: 0;
+    /* Removes extra padding */
+    margin: 0 auto;
+    /* Centers the list within the container */
+    text-align: left;
+    /* Aligns all text to the left */
+    width: fit-content;
+    /* Keeps the width tight around the content */
+}
+
+.list-centered li {
+    margin: 5px 0;
+    /* Adds spacing between list items */
+}
+
+/* Container with Max Width */
+.lander-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Heading Styles */
+h1 {
+    font-size: 35px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 20px auto;
+
+}
+
+h3 {
+    color: #ff6f3c;
+    font-weight: 700;
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+h3 span {
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+
+/* Main Button Styles */
+.lander-button {
+    display: inline-block;
+    background-color: #ff6f3c;
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+    cursor: pointer;
+    margin: 20px auto;
+    font-size: 24px;
+    font-weight: 600;
+    width: 60%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Hover effect for the button */
+.lander-button:hover {
+    background-color: #e55b2f;
+    color: black;
+    text-decoration: none;
+}
+
+/* Iframe Styles */
+iframe {
+    width: 100%;
+    max-width: 1200px;
+    height: 500px;
+    margin: 0 auto;
+    border: none;
+    overflow: hidden;
+}
+
+.smaller-text {
+    font-size: 16px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .lander-background {
+        background-color: #f5f5f5;
+        background-image: none;
+    }
+
+    .lander-background a {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    iframe {
+        height: 400px;
+    }
+
+    a {
+        font-size: 20px;
+        padding: 15px;
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    iframe {
+        height: 250px;
+    }
+
+    a {
+        font-size: 18px;
+        padding: 15px;
+        width: 90%;
+    }
+}
