@@ -11,6 +11,7 @@ const Yukino = () => {
     <div className="lander-background">
       <div className="lander-container">
         <MessageDisplay
+          messageBefore={<h3>Dang it Yukino be patient</h3>}
           codeAfter={
             <React.Fragment>
               <h1>🎄🎄 Hey babe, Merry Christmas! 🎄🎄</h1>

@@ -7,6 +7,11 @@ const Lander = () => {
     <div className="lander-background">
       <div className="lander-container">
         <MessageDisplay
+          messageBefore={
+            <h3>
+              Uh oh! Someone is trying to get into their Christmas gift early!
+            </h3>
+          }
           codeAfter={
             <React.Fragment>
               <h1>🎄🎄 Merry Christmas! 🎄🎄</h1>
