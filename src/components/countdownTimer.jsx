@@ -36,7 +36,10 @@ const CountdownTimer = ({ targetDate }) => {
     <div>
       {timeRemaining > 0 ? (
         <div>
-          <h1>Countdown to Christmas 9 PM JST, Dec 25th, 2024:</h1>
+          <h1>
+            Countdown to Christmas <s>9 PM JST</s> 9 PM PST, Dec 25th, 2024:
+          </h1>
+          <h3>screaaaaaaam I know I said JST but I need more timeeeeeee</h3>
           <h3>{`${days}d ${hours}h ${minutes}m ${seconds}s`}</h3>
         </div>
       ) : (
