@@ -74,7 +74,7 @@ const Lander = () => {
                 }}
               >
                 <iframe
-                  src="https://youtube.com/embed/eyABZOtkRnk"
+                  src="https://youtube.com/embed/srHhSFc4_Nc"
                   frameborder="0"
                   allow="autoplay; encrypted-media"
                   allowfullscreen
@@ -84,7 +84,7 @@ const Lander = () => {
               <p>
                 If the video doesn't load,{" "}
                 <a
-                  href="https://youtu.be/eyABZOtkRnk"
+                  href="https://youtu.be/srHhSFc4_Nc"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
