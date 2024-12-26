@@ -1,7 +1,7 @@
 import React from "react";
 import CountdownTimer from "./countdownTimer";
 
-const MessageDisplay = ({ messageBefore }, { codeAfter }) => {
+const MessageDisplay = ({ messageBefore, codeAfter }) => {
   // Get the current date and time
   const currentDate = new Date();
 

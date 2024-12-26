@@ -21,13 +21,20 @@ const Lander = () => {
               </h4>
               <h3>If you say anything I'll take even longer next time 😅</h3>
               <br />
+              <h2>
+                12/25 edit: SORRY MIKE AND PATTI FOR MAKING YOU GUYS WAKE UP AT
+                4AM
+              </h2>
+              <br />
               <hr />
               <h4>
-                <u>I never expected that on this trip:</u>
+                <u>On this trip, I never expected that:</u>
                 <ul className="list-centered">
                   <li>We'd get caught in a typhoon 🌪️</li>
-                  <li>We'd see a whale shark 🐋🦈</li>
-                  <li>That we found chocolate Jesus 🍫</li>
+                  <li>
+                    I would be drunk without being drunk in an izakaya 🐋🦈
+                  </li>
+                  <li>That we'd find chocolate Jesus 🍫</li>
                   <li>That I would drink so much beer with Hiroaki 🫠</li>
                   <li>
                     I'd wear my Orion Beer shirt religiously for the next year
@@ -43,17 +50,17 @@ const Lander = () => {
               <hr />
               <h3>Anywho.</h3>
               <h2>
-                Merry Christmas. <br /> This was an amazing, wonderful, chaotic,
-                trip. <br />
+                Merry Christmas you wonderful peoples. <br />
+                <br /> This was an amazing, wonderful, chaotic, trip. <br />
                 <br />
-                And it was all done with you guys, people I love and treasure.
-                <br />
-                <br />
-                So happy to have you all in my life (although some of you are
-                closer geographically than others)
+                And it was all done together with people I love and treasure.
                 <br />
                 <br />
-                See you on the next one 👀👀👀👀👀
+                I'm very blessed and happy to have you all in my life <br />{" "}
+                (although some of you are closer geographically than others)
+                <br />
+                <br />
+                See you on the next trip 👀👀👀👀👀
               </h2>
               <br />
               <h1>⬇️⬇️ E n j o y ⬇️⬇️</h1>
@@ -66,22 +73,21 @@ const Lander = () => {
                   overflow: "hidden",
                 }}
               >
-                {/* <iframe
-                  title="Embedded Canva Design"
-                  loading="lazy"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    border: "none",
-                  }}
-                  src="https://www.canva.com/design/DAGVFBMKpGg/1zBU6335FRMJ69-iP6C9ww/view?embed"
-                  allowFullScreen
-                  allow="fullscreen"
-                /> */}
+                <iframe
+                  src="https://youtube.com/embed/eyABZOtkRnk"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen
+                  title="video"
+                />
               </div>
               <p>
                 If the video doesn't load,{" "}
-                <a href="video_link" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://youtu.be/eyABZOtkRnk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   click here to open it in a new tab
                 </a>
               </p>

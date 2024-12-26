@@ -4,7 +4,7 @@ import MessageDisplay from "./MessageDisplay";
 
 const Yukino = () => {
   useEffect(() => {
-    document.title = "A special gift to my special girl ;)";
+    document.title = "A special gift";
   }, []);
 
   return (
@@ -45,6 +45,7 @@ const Yukino = () => {
                   </li>
                   <li>Grow up so fast 👁️👄👁️</li>
                   <li>Learn how much God delights in me through you ✨✨</li>
+                  <li>12/25 edit: that you're one stressed out puppy 🐶</li>
                   <li>
                     Think about buying fried chicken on Christmas to be like all
                     the Japanese people 🍗🍗
@@ -58,8 +59,12 @@ const Yukino = () => {
               <h2>
                 Merry Christmas. <br />
                 You have been the most disruptive thing in my life, in a lot of
-                good, beautiful, hard things. <br />
-                <br /> Miss you a ton, and hope to see you in
+                good, beautiful, hard ways. <br />
+                <br />
+                <br />
+                Let's have more fun and dumb conversations in the new year
+                <br />
+                <br /> Miss you and hope to see you in
                 <br />
                 <s>February</s> <br /> uhh <br /> <s>March</s> uhhhhhhhh <br />
                 <br /> i dunno some time in the next few months haha
@@ -75,21 +80,20 @@ const Yukino = () => {
                 }}
               >
                 <iframe
-                  title="Embedded Canva Design"
-                  loading="lazy"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    border: "none",
-                  }}
-                  src="https://www.canva.com/design/DAGVFBMKpGg/1zBU6335FRMJ69-iP6C9ww/view?embed"
-                  allowFullScreen
-                  allow="fullscreen"
+                  src="https://youtube.com/embed/eyABZOtkRnk"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen
+                  title="video"
                 />
               </div>
               <p>
                 If the video doesn't load,{" "}
-                <a href="video_link" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://youtu.be/eyABZOtkRnk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   click here to open it in a new tab
                 </a>
               </p>
