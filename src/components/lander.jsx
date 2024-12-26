@@ -81,7 +81,7 @@ const Lander = () => {
                   title="video"
                 />
               </div>
-              <p>
+              <h2>
                 If the video doesn't load,{" "}
                 <a
                   href="https://youtu.be/srHhSFc4_Nc"
@@ -90,7 +90,7 @@ const Lander = () => {
                 >
                   click here to open it in a new tab
                 </a>
-              </p>
+              </h2>
             </React.Fragment>
           }
         />
